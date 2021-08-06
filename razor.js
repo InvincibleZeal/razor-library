@@ -90,3 +90,7 @@ $razor = function (selector) {
     el.init();
     return el;
 }
+
+$razor.api = function (...args) {
+    return fetch(...args);
+}

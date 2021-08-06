@@ -18,7 +18,65 @@
     <script>
         console.log($razor('.content').length) // 2
         console.log($razor('.content').addClass('bold').addClass('underlined'));
+        (async () => {
+            $razor
+                .api("https://jsonplaceholder.typicode.com/posts", {
+                    method: "GET",
+                })
+                .then((res) => {
+                    console.log(res);
+                    return res.json();
+                }).then(console.log);
+            $razor
+                .api("https://jsonplaceholder.typicode.com/posts", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userId: 331,
+                        id: 331,
+                        title: "sunt",
+                        body: "quia et",
+                    }),
+                })
+                .then((res) => {
+                    console.log(res);
+                    return res.json();
+                    // {
+                    //   status: "success",
+                    //   data: {
+                    //     name: "test",
+                    //     salary: "123",
+                    //     age: "23",
+                    //     id: 25,
+                    //   },
+                    // };
+                }).then(console.log);
 
+            try {
+                const response = await $razor.api(
+                    "https://jsonplaceholder.typicode.com/posts/1",
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            userId: 331,
+                            id: 331,
+                            title: "sunt",
+                            body: "quia et",
+                        }),
+                    }
+                );
+                console.log(response);
+                let data = await response.json();
+                console.log(data);
+            } catch (e) {
+                console.log("err", e);
+            }
+        })();
     </script>
 </body>
 
