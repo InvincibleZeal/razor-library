@@ -14,16 +14,25 @@
     <section>
         <div class='content'>Hello</div>
         <div class='content'>World</div>
+        <button class='clickMe'>click</div>
+        <button class='clickMe'>click</div>
     </section>
     <script>
-        console.log($razor('.content').length) // 2
-        console.log($razor('.content').addClass('bold').addClass('underlined'));
+        function clickHandler() {
+            console.log("Button clicked")
+        }
+        //console.log($razor('.content').length) // 2
+        //console.log($razor('.content').addClass('bold').addClass('underlined'));
         $razor.setState("name", "Smile", false)
         $razor.setState("name", "Ritesh", true)
-        console.log("session storange",$razor.getState("name", true))
-        console.log("local storage",$razor.getState("name", false))
-        console.log("without key", $razor.getState("title", false))
-        console.log($razor('.content').setStyle({ backgroundColor: "red" }))
+        //console.log("session storange",$razor.getState("name", true))
+        //console.log("local storage",$razor.getState("name", false))
+        //console.log("without key", $razor.getState("title", false))
+        //console.log($razor('.content').setStyle({ backgroundColor: "red" }))
+        $razor('.clickMe').on('click', clickHandler);
+        setTimeout(()=>{
+        $razor('.clickMe').off('click', clickHandler); // remove click handler after 3 seconds
+        }, 3000);
     </script>
 </body>
 

@@ -13,15 +13,18 @@ domElement.prototype.init = function () {
 };
 
 domElement.prototype.on = function (event, callback) {
-    this.elements.forEach(el => {
-        var evt = this.eventHandler.bindEvent(event, callback, el);
+    this.off(event, callback);
+    this.elements.forEach(targetElement => {
+        targetElement.addEventListener(event, callback, true);
     })
 }
-domElement.prototype.off = function (event) {
-    this.elements.forEach(el => {
-        var evt = this.eventHandler.unbindEvent(event, el);
-    });
+domElement.prototype.off = function (event, callback) {
+    console.log(this.elements, event)
+    this.elements.forEach(targetElement => {
+        targetElement.removeEventListener(event, callback, true);
+    })
 }
+
 domElement.prototype.val = function (newVal) {
     if (newVal === undefined) {
         return this.elements.length > 1 ? this.elements[0].value : undefined;
@@ -32,25 +35,6 @@ domElement.prototype.val = function (newVal) {
     }
 };
 
-domElement.prototype.append = function (html) {
-    this.elements.forEach(el => {
-        el.innerHTML = el.innerHTML + html;
-    })
-};
-domElement.prototype.prepend = function (html) {
-    this.elements.forEach(el => {
-        el.innerHTML = html + el.innerHTML;
-    });
-};
-domElement.prototype.html = function (html) {
-    if (html === undefined) {
-        return this.elements.length > 1 ? this.elements[0].value : undefined;
-    } else {
-        this.elements.forEach(el => {
-            this.element.innerHTML = html;
-        })
-    }
-};
 domElement.prototype.addClass = function (className) {
     this.elements.forEach(el => {
         el.classList.add(className);
@@ -67,33 +51,6 @@ domElement.prototype.setStyle = function (styles) {
     });
     return this;
 }
-
-domElement.prototype.eventHandler = {
-    events: [],
-    bindEvent: function (event, callback, targetElement) {
-        this.unbindEvent(event, targetElement);
-        targetElement.addEventListener(event, callback, false);
-        this.events.push({
-            type: event,
-            event: callback,
-            target: targetElement
-        });
-    },
-    findEvent: function (event) {
-        return this.events.filter(function (evt) {
-            return (evt.type === event);
-        }, event)[0];
-    },
-    unbindEvent: function (event, targetElement) {
-        var foundEvent = this.findEvent(event);
-        if (foundEvent !== undefined) {
-            targetElement.removeEventListener(event, foundEvent.event, false);
-        }
-        this.events = this.events.filter(function (evt) {
-            return (evt.type !== event);
-        }, event);
-    }
-};
 
 $razor = function (selector) {
     var el = new domElement(selector);
