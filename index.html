@@ -20,6 +20,9 @@
         console.log($razor('.content').addClass('bold').addClass('underlined'));
         $razor.setState("name", "Smile", false)
         $razor.setState("name", "Ritesh", true)
+        console.log("session storange",$razor.getState("name", true))
+        console.log("local storage",$razor.getState("name", false))
+        console.log("without key", $razor.getState("title", false))
     </script>
 </body>
 

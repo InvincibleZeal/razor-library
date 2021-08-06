@@ -95,3 +95,7 @@ $razor = function (selector) {
 $razor.setState = function(key, value, isSessionStorage){
     isSessionStorage ? sessionStorage.setItem(key, value) : localStorage.setItem(key, value);
 }
+
+$razor.getState = function(key, isSessionStorage){
+    return isSessionStorage ? sessionStorage.getItem(key) : localStorage.getItem(key);
+}
