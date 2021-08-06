@@ -59,6 +59,15 @@ domElement.prototype.addClass = function (className) {
     return this;
 }
 
+domElement.prototype.setStyle = function (styles) {
+    this.elements.forEach(el => {
+        Object.keys(styles).forEach(s => {
+            el.style[s] = styles[s]
+        })
+    });
+    return this;
+}
+
 domElement.prototype.eventHandler = {
     events: [],
     bindEvent: function (event, callback, targetElement) {
