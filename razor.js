@@ -85,8 +85,13 @@ domElement.prototype.eventHandler = {
         }, event);
     }
 };
+
 $razor = function (selector) {
     var el = new domElement(selector);
     el.init();
     return el;
+}
+
+$razor.setState = function(key, value, isSessionStorage){
+    isSessionStorage ? sessionStorage.setItem(key, value) : localStorage.setItem(key, value);
 }
